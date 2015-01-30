@@ -1,0 +1,205 @@
+  <!--<DOCTYPE html>
+
+<html>
+  <head lang="en" ng-app="ionicApp" ng-strict-di>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="cordova.js"></script>
+
+  <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+   <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+
+    <script src="js/apps/app_a.js"></script>
+    <script src="js/controllers/controllersmin.js"></script>
+    <script src="js/services/servicesmin1.js"></script>
+    <script src="js/controllers/controllersmin.js"></script>
+       <script src="js/directives/directivesmin.js"></script>
+  </head>
+  <body>
+
+
+
+    <ion-nav-bar class="bar-positive">
+    </ion-nav-bar>
+    <ion-tabs class="tabs-positive">
+      <ion-tab icon="ion-home" ui-sref="home">
+        <ion-nav-view name="home"></ion-nav-view>
+      </ion-tab>
+      <ion-tab icon="ion-help" ui-sref="help">
+        <ion-nav-view name="help"></ion-nav-view>
+      </ion-tab>
+    </ion-tabs>
+
+    <script type="text/ng-template" id="home.html">
+      <ion-view title="Home">
+        <ion-content padding="true">
+          <h2>Home Page</h2>
+          <p>Here's the main route for the app.</p>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script type="text/ng-template" id="help.html">
+      <ion-view title="Help">
+        <ion-content padding="true">
+           <h2>Using the app</h2>
+           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis architecto hic officia quasi excepturi sequi deleniti maiores consectetur veritatis sint?</p>
+        </ion-content>
+      </ion-view>
+    </script>
+
+  </body>
+</html>
+-->
+
+
+<!DOCTYPE html>
+<html ng-app="ionicApp">
+
+  <head>
+    <link data-require="ionic@1.0.0-beta6" data-semver="1.0.0-beta6" rel="stylesheet" href="http://code.ionicframework.com/1.0.0-beta.6/css/ionic.css" />
+    <script data-require="ionic@1.0.0-beta6" data-semver="1.0.0-beta6" src="http://code.ionicframework.com/1.0.0-beta.6/js/ionic.bundle.js"></script>
+    <script src="lib/angular-resource.js"></script> 
+    <script src="js/apps/app_a.js"></script>
+    <script type="text/javascript">
+  
+  var ref = null;
+function openInAppBrowserBlank(url)
+{
+    try {
+      alert('inappbrowser')
+ref = window.open(encodeURI(url),'_blank','location=yes', 'closebuttoncaption=Done'); //encode is needed if you want to send a variable with your link if not you can use ref = window.open(url,'_blank','location=no');
+         ref.addEventListener('loadstop', function(event) {        
+    //if (True or event.url.match("mobile/close")) {
+
+        alert(event.url.toString() + " fun load stop runs");
+        ref.close();
+    //}
+});
+         ref.addEventListener('exit', Close);
+    }
+    catch (err)    
+    {
+        alert(err);
+    }
+}
+function LoadStop(event) {
+         //if(event.url != "http://www.mypage.com/closeInAppBrowser.html"){
+             alert(event.url.toString() + " fun load stop runs");
+             ref.close();
+         //}    
+    }
+function Close(event) {
+         ref.removeEventListener('loadstop', LoadStop);
+         ref.removeEventListener('exit', Close);
+    } 
+
+</script>
+
+    <link href="style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+
+
+
+
+    <ion-nav-view></ion-nav-view>
+
+    <script type="text/ng-template" id="main.html">
+      <ion-nav-bar class="bar-positive">
+      </ion-nav-bar>
+      <ion-tabs class="tabs-positive">
+        <ion-tab icon="ion-home" ui-sref="app.todos">
+          <ion-nav-view name="todos"></ion-nav-view>
+        </ion-tab>
+        <ion-tab icon="ion-help" ui-sref="app.help">
+          <ion-nav-view name="help"></ion-nav-view>
+        </ion-tab>
+      </ion-tabs>
+    </script>
+
+
+
+
+
+
+    <script type="text/ng-template" id="todos.html">
+      <ion-view title="Todos">
+        <ion-content>
+          <ion-list type="card">
+
+<!-- <ion-item ng-repeat-start="article in articles track by article.id" class="card item-text-wrap" ui-sref="app.todos.detail({todo: $index})"> data-ng-bind-html="htmlcontent" -->
+
+            <ion-item ng-repeat-start="article in articles track by article.id" class="card item-text-wrap">
+
+<a href="#" onclick="window.open(encodeURI(url),'_blank','location=yes', 'closebuttoncaption=Done'); return false;">open InAppBrowser</a>
+<!-- <a href="#" onclick="openInAppBrowserBlank('http://www.google.com');">open InAppBrowser</a> -->
+
+
+
+                      <h3> <a href='{{article.url}}'> {{article.title}} </a> </h3>
+                      <p>{{article.topComment}} </p>
+                      <ion-option-button class="button-positive">Share</ion-option-button>
+                         <h1>Before</h1>
+
+        <p ng-bind-html="html"></p>
+        <p ng-bind-html="plaintext"></p>
+         <h1>After</h1>
+
+        <p ng-bind-html="html | hrefToJS"></p>
+        <p ng-bind-html="plaintext | linky | hrefToJS"></p>
+
+   <div class="button-bar">
+  <a class="button ion-chevron-up"> {{article.score}}</a>
+  <a class="button ion-chatbubbles"> {{article.topCommentNum}}</a>
+  <a class="button">{{article.pub}} </a>
+  <a class="button">{{article.tag}}</a>
+</div>
+
+
+
+            </ion-item>
+
+              <div ng-repeat-end> </div>
+          </ion-list>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script type="text/ng-template" id="todo.html">
+      <ion-view title="Todo">
+        <ion-content>
+            <div class="item">
+              <p>{{todo.title}}</p>
+            </div>
+
+            <div class="item item-checkbox">
+              <div>
+                <label class="checkbox">
+                  <input type="checkbox" ng-model="todo.done">
+                </label>
+                Done
+              </div>
+
+            </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script type="text/ng-template" id="help.html">
+      <ion-view title="Home">
+        <ion-content padding="true">
+           <h2>Using the app</h2>
+           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis architecto hic officia quasi excepturi sequi deleniti maiores consectetur veritatis sint?</p>
+        </ion-content>
+      </ion-view>
+    </script>
+  </body>
+</html>
