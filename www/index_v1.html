@@ -6,10 +6,9 @@
     <link data-require="ionic@1.0.0-beta6" data-semver="1.0.0-beta6" rel="stylesheet" href="http://code.ionicframework.com/1.0.0-beta.6/css/ionic.css" />
     <script data-require="ionic@1.0.0-beta6" data-semver="1.0.0-beta6" src="http://code.ionicframework.com/1.0.0-beta.6/js/ionic.bundle.js"></script>
     <script src="lib/angular-resource.js"></script> 
- 
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    <script src="cordova.js"></script>
-   <script src="js/apps/app_a.js"></script> 
+    <script src="js/apps/app_a.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+
     <link href="style.css" rel="stylesheet" />
   </head>
 
@@ -38,6 +37,8 @@
                 Open a Browser
             </a> -->
 
+
+
     <script type="text/ng-template" id="todos.html">
       <ion-view title="Todos">
         <ion-content>
@@ -46,19 +47,16 @@
             <ion-item ng-repeat-start="article in articles track by article.id" class="card item-text-wrap">
 
 
-                       <img ng-src="http://d2invxie986h3w.cloudfront.net/{{article.img}}" class="full-image" />
-                       
-                      <h2 ng-bind-html=" articles[article.id] | urlToJS "></h2>
-                      <p>{{article.topComment}} </p>      
-                    
-                     
-                    
-                     <div class="button-bar">
-                          <a class="button-small ion-chevron-up"> {{article.score}}</a>
-                          <a class="button-small ion-chatbubbles"> {{article.topCommentNum}}</a>
-                          <a class="button-small">{{article.pub}} </a>
-                          <a class="button-small">{{article.tag}}</a>
-                      </div>
+
+                      <h3 ng-bind-html=" articles[article.id] | urlToJS "></h3>
+                      <p>{{article.topComment}} </p>            
+
+   <div class="button-bar">
+  <a class="button-small ion-chevron-up"> {{article.score}}</a>
+  <a class="button-small ion-chatbubbles"> {{article.topCommentNum}}</a>
+  <a class="button-small">{{article.pub}} </a>
+  <a class="button-small">{{article.tag}}</a>
+</div>
 
 
 

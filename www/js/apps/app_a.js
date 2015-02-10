@@ -2,7 +2,7 @@
 
 /* App Module */
 
-var app = angular.module('ionicApp', ['ionic', 'ngResource','ngSanitize']);
+var app = angular.module('ionicApp', ['ionic', 'ngResource','ngSanitize', 'ngCordova']);
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -17,6 +17,17 @@ app.run(function($ionicPlatform) {
     }
   });
 })
+
+
+// document.addEventListener("deviceready", function () {
+//   $cordovaPlugin.someFunction().then(success, error);
+// }, false);
+
+// // OR with IONIC
+
+// $ionicPlatform.ready(function() {
+//   $cordovaPlugin.someFunction().then(success, error);
+// });
 
 
 
@@ -325,7 +336,7 @@ function asyncServiceFuncFactory(asyncService) {
                         "techcrunch", 
                         "wsj", 
                         "amzbooks",
-                        // "people", 
+                         "people", 
                         "rtomatoes", 
                         "billboard"  ];
 
