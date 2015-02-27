@@ -29,9 +29,6 @@ app.run(function($ionicPlatform) {
 //   $cordovaPlugin.someFunction().then(success, error);
 // });
 
-
-
-
 function tagSorterControllerFunc($filter, data,tagSortCriteria){
   
     var orderBy = $filter('orderBy');
@@ -215,8 +212,8 @@ function tagSorterControllerFunc($filter, data,tagSortCriteria){
         data.setFriends(sortedParentArray);
       }
 
-    }
-  };
+    } 
+  };//return
   
 };
 
@@ -328,12 +325,13 @@ function asyncServiceFuncFactory(asyncService) {
     var publications = ["nytimes",
                         "guardian",
                         "atlantic",
-                        "nydailynews",
+                        "usatoday",
+                        "politico",
                         "youtube",
                         "hulu", 
                         "wired", 
                         "bloomberg", 
-                        "techcrunch", 
+                        "techcrunch",
                         "wsj", 
                         "amzbooks",
                          "people", 
@@ -356,8 +354,23 @@ function asyncServiceFuncFactory(asyncService) {
   };
 
 
+//app.factory("shareServices", ['$scope', '$cordovaSocialSharing', '$ionicPlatform',  exampleControllerFunc ]);
+
+function shareServicesFunc($cordovaSocialSharing, $ionicPlatform) {
+    return{
+     shareAnywhere:function(article) {
+      alert('Hello shareAnywhere: ' + article.url)
+        $ionicPlatform.ready(function() {
+         $cordovaSocialSharing.share(article.topComment + ' via Hotoppy App', article.title , 'http://d2invxie986h3w.cloudfront.net/' + article.img,  article.url );
+      
+      })
+    }
+  };
+   
+};
 
 
+app.factory('shareServices', ['$cordovaSocialSharing', '$ionicPlatform',  shareServicesFunc ]);
 
 
 app.config(function($stateProvider, $urlRouterProvider, ArticlesCtrlResolve) {
@@ -397,7 +410,9 @@ app.config(function($stateProvider, $urlRouterProvider, ArticlesCtrlResolve) {
         return TodosService.getTodo($stateParams.todo)
       }
     }
-  })
+  }
+
+  )
 
 
   // $stateProvider.state('app.todos.detail', {
@@ -758,20 +773,14 @@ app.factory('tagSortCriteria',function() {
  //factory
 
 app.controller('TodosCtrl', function($scope, TodosService,articles, data) {
-  console.log('ARTICLES: ' + articles)
+  console.log('TodosCtrl ARTICLES: ' + articles)
 
   $scope.articles = data.friends(articles);
   data.setFriends($scope.articles);
-  $scope.html = "This a link: <a href='https://www.google.com'>Google</a> :)";
-  $scope.plaintext = "This is a link: https://www.google.com :) "
+ // $scope.html = "This a link: <a href='https://www.google.com'>Google</a> :)";
+  //$scope.plaintext = "This is a link: https://www.google.com :) "
 
 })
-
-app.controller('TodoCtrl', function($scope, todo) {
-  console.log('todo ctrl: ' + todo.title);
-  $scope.todo = todo
-})
-
 
 app.filter('hrefToJS', function ($sce, $sanitize) {
     return function (text) {
@@ -790,8 +799,34 @@ app.filter('hrefToJS', function ($sce, $sanitize) {
         return $sce.trustAsHtml(newString);
     }
 });
- 
-app.controller('MyCtrl', function ($scope) {
-    $scope.html = "This a link: <a href='https://www.google.com'>Google</a> :)";
-    $scope.plaintext = "This is a link: https://www.google.com :) "
-});
+
+
+app.directive("myDice", [
+  function() {
+    return {
+      restrict: "AEC",
+      replace: true,
+      transclude: true,
+      template: '<div class="blaha" >abc123</div>',
+      scope: {},
+      controller: function($scope, $element) {
+        //currently empty
+      }
+    };
+  }
+]);
+
+
+app.directive('myDirective', ['shareServices', function(shareServices) {
+    return {
+        restrict: 'EA',
+        replace: true, 
+       template: '<a class="button-small" ng-click="clickShare(article)">share</a>',
+      link: function(scope, element, attrs){
+         scope.clickShare = function(article){
+          shareServices.shareAnywhere(article);
+         };
+
+      }
+    };
+}]);

@@ -21,15 +21,15 @@
     <ion-nav-view></ion-nav-view>
 
     <script type="text/ng-template" id="main.html">
-      <ion-nav-bar class="bar-positive">
+      <ion-nav-bar class="bar bar-header bar-light">
       </ion-nav-bar>
-      <ion-tabs class="tabs-positive">
-        <ion-tab icon="ion-home" ui-sref="app.todos">
-          <ion-nav-view name="todos"></ion-nav-view>
+      <ion-tabs>
+        <ion-tab ui-sref="app.todos">
+          <ion-nav-view name="todos"></ion-nav-view> 
         </ion-tab>
-        <ion-tab icon="ion-help" ui-sref="app.help">
-          <ion-nav-view name="help"></ion-nav-view>
-        </ion-tab>
+        
+        
+        
       </ion-tabs>
     </script>
 
@@ -39,7 +39,8 @@
             </a> -->
 
     <script type="text/ng-template" id="todos.html">
-      <ion-view title="Todos">
+
+      <ion-view title="Top News Top Comments">
         <ion-content>
           <ion-list type="card">
 
@@ -48,9 +49,10 @@
 
                        <img ng-src="http://d2invxie986h3w.cloudfront.net/{{article.img}}" class="full-image" />
                        
-                      <h2 ng-bind-html=" articles[article.id] | urlToJS "></h2>
+                       <h2 ng-bind-html=" articles[article.id] | urlToJS "></h2>
+
                       <p>{{article.topComment}} </p>      
-                    
+
                      
                     
                      <div class="button-bar">
@@ -58,8 +60,13 @@
                           <a class="button-small ion-chatbubbles"> {{article.topCommentNum}}</a>
                           <a class="button-small">{{article.pub}} </a>
                           <a class="button-small">{{article.tag}}</a>
+                          <my-directive> </my-directive>
+                         <!-- <a class="button-small" ng-click="clickShare(article)" the-click="">Share</a> -->
                       </div>
 
+                   <div my-dice>{{someTitle}}</div>
+                    
+      
 
 
             </ion-item>
