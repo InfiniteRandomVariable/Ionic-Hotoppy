@@ -771,6 +771,16 @@ app.factory('tagSortCriteria',function() {
 
 .factory('tagSorterController', ['$filter', 'data','tagSortCriteria', tagSorterControllerFunc ]);
  //factory
+app.controller('TabsCtrl', function($scope, $rootScope, $state) {
+        $rootScope.$on('$ionicView.beforeEnter', function() {
+
+            $rootScope.hideTabs = false;
+
+            if ($state.current.name === 'tabs.events-create') {
+                $rootScope.hideTabs = true;
+            }
+        });
+    });
 
 app.controller('TodosCtrl', function($scope, TodosService,articles, data) {
   console.log('TodosCtrl ARTICLES: ' + articles)
